@@ -44,7 +44,7 @@ func Run() error {
 }
 
 func runClient(url, packageName string, args []string) error {
-	_, err := cgExec.Execute(true, "mvn", "-q", "-B", "compile")
+	_, err := cgExec.Execute(true, "mvn", "-q", "-B", "clean", "compile")
 	if err != nil {
 		return err
 	}

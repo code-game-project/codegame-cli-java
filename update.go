@@ -77,7 +77,7 @@ func updateClient(projectName, libraryVersion string, config *cgfile.CodeGameFil
 	}
 
 	cli.BeginLoading("Updating java-client...")
-	exec.Execute(true, "mvn", "compile")
+	exec.Execute(true, "mvn", "dependency:resolve")
 	exec.Execute(true, "mvn", "dependency:sources")
 	exec.Execute(true, "mvn", "dependency:resolve", "-Dclassifier=javadoc")
 	cli.FinishLoading()
