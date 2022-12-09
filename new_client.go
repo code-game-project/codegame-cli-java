@@ -30,7 +30,7 @@ var clientPomXMLTemplate string
 //go:embed templates/new/gitignore.tmpl
 var gitignoreTemplate string
 
-var packageRegexp = regexp.MustCompile(`[a-zA-Z](\.[a-zA-Z])*`)
+var packageRegexp = regexp.MustCompile(`^[a-zA-Z]+(\.[a-zA-Z]+)*$`)
 
 func CreateNewClient(projectName string) error {
 	data, err := modules.ReadCommandConfig[modules.NewClientData]()
