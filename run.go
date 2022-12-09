@@ -44,7 +44,7 @@ func Run() error {
 }
 
 func runClient(url, packageName string, args []string) error {
-	_, err := cgExec.Execute(true, "mvn", "compile")
+	_, err := cgExec.Execute(true, "mvn", "-q", "-B", "compile")
 	if err != nil {
 		return err
 	}
@@ -54,7 +54,7 @@ func runClient(url, packageName string, args []string) error {
 		args[i] = "'" + a + "'"
 	}
 
-	cmdArgs := []string{"-e", "-q", "exec:java", "-Dexec.mainClass=" + packageName + ".App", "-Dexec.args=" + strings.Join(args, " ")}
+	cmdArgs := []string{"-q", "-B", "-e", "exec:java", "-Dexec.mainClass=" + packageName + ".App", "-Dexec.args=" + strings.Join(args, " ")}
 
 	env := []string{"CG_GAME_URL=" + url}
 	env = append(env, os.Environ()...)

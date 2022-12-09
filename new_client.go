@@ -84,15 +84,15 @@ func CreateNewClient(projectName string) error {
 	}
 
 	cli.BeginLoading("Installing java-client...")
-	_, err = exec.Execute(true, "mvn", "compile")
+	_, err = exec.Execute(true, "mvn", "-B", "dependency:resolve")
 	if err != nil {
 		return err
 	}
-	_, err = exec.Execute(true, "mvn", "dependency:sources")
+	_, err = exec.Execute(true, "mvn", "-B", "dependency:resolve", "-Dclassifier=javadoc")
 	if err != nil {
 		return err
 	}
-	_, err = exec.Execute(true, "mvn", "dependency:resolve", "-Dclassifier=javadoc")
+	_, err = exec.Execute(true, "mvn", "-B", "dependency:sources")
 	if err != nil {
 		return err
 	}
