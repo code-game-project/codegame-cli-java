@@ -1,0 +1,16 @@
+package {{.Package}};
+
+import java.io.IOException;
+
+import {{.Package}}.{{.GameNameOneWord}}.Game;
+
+public class App {
+  public static void main(String[] args) throws IOException {
+    var game = Game.fromArgs(args, null);
+
+    // TODO: register event listeners
+
+    game.listen();
+  }
+}
+
