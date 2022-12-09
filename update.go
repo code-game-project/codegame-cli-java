@@ -3,11 +3,13 @@ package main
 import (
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/Bananenpro/cli"
 	"github.com/code-game-project/go-utils/cgfile"
 	"github.com/code-game-project/go-utils/cggenevents"
 	"github.com/code-game-project/go-utils/exec"
+	"github.com/code-game-project/go-utils/external"
 	"github.com/code-game-project/go-utils/modules"
 	"github.com/code-game-project/go-utils/server"
 )
@@ -22,6 +24,15 @@ func Update(projectName string) error {
 	if err != nil {
 		return err
 	}
+
+	if data.LibraryVersion == "latest" {
+		data.LibraryVersion, err = external.LatestGithubTag("code-game-project", "java-client")
+		data.LibraryVersion = strings.TrimPrefix(data.LibraryVersion, "v")
+		if err != nil {
+			return fmt.Errorf("Failed to determine latest library version: %w", err)
+		}
+	}
+
 	switch config.Type {
 	case "client":
 		return updateClient(projectName, data.LibraryVersion, config)

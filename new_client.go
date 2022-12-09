@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -12,6 +13,7 @@ import (
 	"github.com/code-game-project/go-utils/cgfile"
 	"github.com/code-game-project/go-utils/cggenevents"
 	"github.com/code-game-project/go-utils/exec"
+	"github.com/code-game-project/go-utils/external"
 	"github.com/code-game-project/go-utils/modules"
 	"github.com/code-game-project/go-utils/server"
 )
@@ -34,6 +36,14 @@ func CreateNewClient(projectName string) error {
 	data, err := modules.ReadCommandConfig[modules.NewClientData]()
 	if err != nil {
 		return err
+	}
+
+	if data.LibraryVersion == "latest" {
+		data.LibraryVersion, err = external.LatestGithubTag("code-game-project", "java-client")
+		data.LibraryVersion = strings.TrimPrefix(data.LibraryVersion, "v")
+		if err != nil {
+			return fmt.Errorf("Failed to determine latest library version: %w", err)
+		}
 	}
 
 	api, err := server.NewAPI(data.URL)
