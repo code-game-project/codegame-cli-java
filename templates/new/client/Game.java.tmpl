@@ -99,7 +99,7 @@ public class Game {
         var cmdCreate = new CLICreate();
         var cmdJoin = new CLIJoin();
         var cmdReconnect = new CLIReconnect();
-        var jc = JCommander.newBuilder().programName("test").addCommand(cmdCreate).addCommand(cmdJoin)
+        var jc = JCommander.newBuilder().programName("{{.ProjectName}}").addCommand(cmdCreate).addCommand(cmdJoin)
                 .addCommand(cmdReconnect).build();
         jc.parse(args);
 

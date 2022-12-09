@@ -34,7 +34,7 @@ func Build() error {
 		return errors.New("Empty language config field `package` in .codegame.json!")
 	}
 
-	if data.OS != "" || data.Arch != "" {
+	if data.OS != "current" || data.Arch != "current" {
 		return errors.New("Cross compilation is not supported for Java applications.")
 	}
 
